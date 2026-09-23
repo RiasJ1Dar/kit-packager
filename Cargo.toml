@@ -1,0 +1,19 @@
+[package]
+name = "kit-packager"
+version = "0.1.0"
+edition = "2021"
+description = "CLI: cargo build → ota-sign → gh release for desktop kit binaries"
+license = "MIT"
+repository = "https://github.com/RiasJ1Dar/kit-packager"
+readme = "README.md"
+keywords = ["release", "packaging", "ota", "github", "cli"]
+categories = ["command-line-utilities", "development-tools"]
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+thiserror = "2"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

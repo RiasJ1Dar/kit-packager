@@ -1,6 +1,6 @@
 use crate::error::{Error, Result};
 use std::ffi::OsStr;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 /// Run an external tool; stream stdout/stderr to the user.
@@ -31,12 +31,26 @@ where
     }
 }
 
+/// True if `name` resolves on PATH. Does **not** run `--version`: tools like
+/// `ota-sign` only expose `--help`, and a failed version probe looked like "missing".
 pub fn which(name: &str) -> bool {
-    Command::new(name)
-        .arg("--version")
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
-        .status()
-        .map(|s| s.success())
-        .unwrap_or(false)
+    resolve(name).is_some()
+}
+
+fn resolve(name: &str) -> Option<PathBuf> {
+    let path = std::env::var_os("PATH")?;
+    for dir in std::env::split_paths(&path) {
+        let candidate = dir.join(name);
+        if candidate.is_file() {
+            return Some(candidate);
+        }
+        #[cfg(windows)]
+        {
+            let exe = dir.join(format!("{name}.exe"));
+            if exe.is_file() {
+                return Some(exe);
+            }
+        }
+    }
+    None
 }

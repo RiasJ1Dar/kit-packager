@@ -2,106 +2,161 @@
 
 # kit-packager
 
-CLI-обгортка навколо вже наявного стеку: збирає бінарник (`cargo`),
-підписує OTA-канал (`ota-sign`), викладає GitHub Release (`gh`).
-Без вендорингу `ota-sign` — лише виклик, якщо він у `PATH`.
+CLI-оркестратор для релізу Rust desktop-застосунків:
 
-## Навіщо
+```text
+cargo build --release → ota-sign publish → gh release create
+```
 
-Для десктопних кітів ([desktop-remote-kit](https://github.com/RiasJ1Dar/desktop-remote-kit)
-та хостів на ньому) реліз — це три кроки, які легко злити в один скрипт.
-Цей інструмент і є той скрипт, у вигляді Rust CLI.
+Інструмент не дублює Cargo, OTA-формат або GitHub CLI. Він перевіряє потрібні
+файли, друкує фактичні зовнішні команди й завершується помилкою, якщо одна з них
+повернула ненульовий exit code. Поточна версія: 0.1.0.
 
-## Встановлення
+## Вимоги
+
+| Інструмент | Потрібен для |
+|---|---|
+| Rust / Cargo | встановлення і `build` |
+| [ota-sign](https://github.com/RiasJ1Dar/ota-sign) у `PATH` | `sign` |
+| [GitHub CLI](https://cli.github.com/) з виконаним `gh auth login` | `release` |
 
 ```bash
-# залежності
-# - rustup / cargo
-# - gh (https://cli.github.com), авторизований
-# - опційно: ota-sign
 cargo install --git https://github.com/RiasJ1Dar/ota-sign
-
 cargo install --git https://github.com/RiasJ1Dar/kit-packager
-# або з клону:
+```
+
+Або встанови `kit-packager` із клону:
+
+```bash
+git clone https://github.com/RiasJ1Dar/kit-packager.git
+cd kit-packager
 cargo install --path .
 ```
 
-## Три кроки
+## Повний сценарій
 
-### 1. `build` — зібрати release-бінарник
+Один раз створи ключ OTA. Секретний файл не додавай у Git:
 
 ```bash
-kit-packager build --project ../my-desktop-app
-# або з іменем бінарника / таргетом:
-kit-packager build --project . --bin my-app --target x86_64-pc-windows-gnu
+ota-sign keygen ./keys/release
 ```
 
-Друкує шлях до артефакту в `target/release/…` (або `target/<triple>/release/…`).
-
-### 2. `sign` — OTA-канал через ota-sign
-
-Потрібен `ota-sign` у `PATH` і секретний ключ (`ota-sign keygen ./keys/release`).
+Збери застосунок:
 
 ```bash
-mkdir -p dist && cp target/release/my-app dist/
+kit-packager build --project ./apps/host --bin host
+```
+
+Підпиши каталог з артефактами:
+
+```bash
+mkdir -p dist
+cp apps/host/target/release/host dist/
+
 kit-packager sign \
   --source ./dist \
   --out ./channel \
-  --app MyApp \
-  --version 1.2.0 \
+  --app Host \
+  --version 0.1.0 \
   --secret ./keys/release.secret
 ```
 
-Результат: `channel/manifest.json`, `channel/manifest.sig`, `channel/blobs/…`
-(формат — як у [ota-sign](https://github.com/RiasJ1Dar/ota-sign)).
-
-Якщо `ota-sign` немає — команда падає з підказкою; можна одразу йти на `release`
-із сирим `.exe` / архівом.
-
-### 3. `release` — GitHub Release через `gh`
+Створи GitHub Release:
 
 ```bash
-kit-packager release \
-  --tag v1.2.0 \
-  --repo RiasJ1Dar/my-desktop-app \
-  --asset ./dist/my-app \
-  --asset ./channel/manifest.json \
-  --asset ./channel/manifest.sig
-# blobs можна залити окремо (Pages / raw) або архівувати:
-# tar czf channel.tar.gz -C channel . && --asset channel.tar.gz
-```
-
-Якщо тег уже є — спробує `gh release upload --clobber`.
-
-## Типовий workflow для desktop kit
-
-```bash
-# ключ один раз
-ota-sign keygen ./keys/release   # *.secret не в git
-
-kit-packager build --project ./apps/host --bin host
-mkdir -p dist && cp target/release/host dist/
-
-kit-packager sign \
-  --source ./dist --out ./channel \
-  --app Host --version 0.1.0 \
-  --secret ./keys/release.secret
-
 kit-packager release \
   --tag v0.1.0 \
   --repo You/Host \
-  --asset dist/host \
+  --asset ./dist/host \
+  --asset ./channel/manifest.json \
+  --asset ./channel/manifest.sig \
   --notes "перший реліз"
 ```
 
-Клієнт з `desktop-remote-kit` бачить тег через `releases/latest`;
-підтягування файлів — через `ota-sign apply-url`, якщо канал викладено.
+Блоби OTA можна опублікувати через GitHub Pages / Raw або додати до окремого
+архіву релізу.
 
-## Чого навмисне немає
+## `build`
 
-- Власної криптографії / формату OTA — це `ota-sign`.
-- Підпису коду Windows (Authenticode) — окремо, сертифікат у хоста.
-- CI-workflow у цьому репо — додай у хост-проєкті за потреби.
+```bash
+kit-packager build [--project DIR] [--bin NAME] [--target TRIPLE] [-- CARGO_ARGS...]
+```
+
+| Параметр | Значення |
+|---|---|
+| `--project DIR` | Тека з `Cargo.toml`; за замовчуванням `.` |
+| `--bin NAME` | Передати Cargo `--bin NAME` |
+| `--target TRIPLE` | Передати Cargo `--target TRIPLE` |
+| аргументи після `--` | Додати їх до `cargo build --release` |
+
+Приклад із feature:
+
+```bash
+kit-packager build --project . --bin my-app -- --features portable
+```
+
+Після успішної збірки команда друкує очікуваний шлях
+`target/release/<name>` або `target/<triple>/release/<name>`; на Windows
+перевіряє варіант із `.exe`.
+
+## `sign`
+
+```bash
+kit-packager sign \
+  --source PATH \
+  [--out ./channel] \
+  --app APP_ID \
+  --version VERSION \
+  --secret KEY.secret
+```
+
+`--source` може бути каталогом або одним файлом. Один файл копіюється в
+сусідню теку `kit-packager-dist/`, після чого `ota-sign publish` отримує
+каталог. Результат у `--out`:
+
+```text
+manifest.json
+manifest.sig
+blobs/<sha512>.bin
+```
+
+Якщо `ota-sign` відсутній, можна пропустити цей крок і опублікувати звичайний
+бінарник через `release`.
+
+## `release`
+
+```bash
+kit-packager release \
+  --tag TAG \
+  [--repo OWNER/REPO] \
+  [--title TEXT] \
+  [--notes TEXT] \
+  --asset PATH [--asset PATH ...] \
+  [--draft] [--prerelease]
+```
+
+Потрібен хоча б один `--asset`. Без `--repo` GitHub CLI визначає репозиторій
+із Git remote поточної теки. Без `--title` використовується тег, без
+`--notes` — `gh --generate-notes`.
+
+Спочатку виконується `gh release create`. Якщо реліз із таким тегом уже існує,
+CLI пробує `gh release upload --clobber`, тому повторний запуск оновлює
+передані assets.
+
+## Межі відповідальності
+
+- Криптографія та формат OTA належать `ota-sign`.
+- Authenticode-підписування Windows-бінарників тут не виконується.
+- CI workflow має жити в репозиторії застосунку.
+- CLI не змінює версію в `Cargo.toml` і не створює changelog.
+
+## Розробка
+
+```bash
+cargo fmt --check
+cargo test
+cargo clippy --all-targets -- -D warnings
+```
 
 ## Ліцензія
 

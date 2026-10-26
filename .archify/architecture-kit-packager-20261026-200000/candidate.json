@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "kit-packager: збірка, підпис і реліз одним CLI",
+    "output": ".archify/architecture-kit-packager-20261026-200000/kit-packager.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/RiasJ1Dar/kit-packager.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "88eea5f5dede059cca20fbfad6c65247d2c21882"
+    }
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [40, 40],
+    "cols": 5,
+    "cellW": 125,
+    "cellH": 70,
+    "gapX": 70,
+    "gapY": 90
+  },
+  "components": [
+    {
+      "id": "cargo", "type": "external", "label": "cargo", "sublabel": "Rust toolchain",
+      "row": 0, "col": 3,
+      "sources": [{ "path": "src/build.rs", "line": 29, "end_line": 30, "label": "запуск cargo" }]
+    },
+    {
+      "id": "user", "type": "external", "label": "Користувач", "sublabel": "термінал",
+      "row": 1, "col": 0,
+      "sources": [{ "path": "README.md", "line": 36, "end_line": 74, "label": "повний сценарій" }]
+    },
+    {
+      "id": "cli", "type": "backend", "label": "kit-packager", "sublabel": "clap, 3 команди",
+      "row": 1, "col": 1,
+      "sources": [
+        { "path": "src/main.rs", "line": 25, "end_line": 84, "label": "підкоманди" },
+        { "path": "src/main.rs", "line": 95, "end_line": 150, "label": "диспетчер" }
+      ]
+    },
+    {
+      "id": "build", "type": "backend", "label": "build", "sublabel": "--release",
+      "row": 1, "col": 2,
+      "sources": [
+        { "path": "src/build.rs", "line": 17, "end_line": 35 },
+        { "path": "src/build.rs", "line": 37, "end_line": 64, "label": "guess_artifact" }
+      ]
+    },
+    {
+      "id": "artifact", "type": "database", "label": "target/release/", "sublabel": "очікуваний шлях",
+      "row": 1, "col": 4,
+      "sources": [{ "path": "src/build.rs", "line": 46, "end_line": 57, "label": ".exe на Windows" }]
+    },
+    {
+      "id": "secret", "type": "security", "label": "*.secret", "sublabel": "ключ ota-sign",
+      "row": 2, "col": 0,
+      "sources": [{ "path": "src/sign.rs", "line": 27, "end_line": 32, "label": "перевірка наявності" }]
+    },
+    {
+      "id": "sign", "type": "backend", "label": "sign", "sublabel": "перевіряє PATH",
+      "row": 2, "col": 2,
+      "sources": [
+        { "path": "src/sign.rs", "line": 19, "end_line": 55 },
+        { "path": "src/sign.rs", "line": 58, "end_line": 80, "label": "ensure_source_dir" }
+      ]
+    },
+    {
+      "id": "otasign", "type": "external", "label": "ota-sign", "sublabel": "має бути в PATH",
+      "row": 2, "col": 3,
+      "sources": [{ "path": "src/sign.rs", "line": 35, "end_line": 49, "label": "publish" }]
+    },
+    {
+      "id": "channel", "type": "database", "label": "channel/", "sublabel": "manifest + blobs",
+      "row": 2, "col": 4,
+      "sources": [{ "path": "src/sign.rs", "line": 50, "end_line": 53 }]
+    },
+    {
+      "id": "release", "type": "backend", "label": "release", "sublabel": "створює реліз",
+      "row": 3, "col": 2,
+      "sources": [
+        { "path": "src/release.rs", "line": 23, "end_line": 72 },
+        { "path": "src/release.rs", "line": 74, "end_line": 90, "label": "upload --clobber" }
+      ]
+    },
+    {
+      "id": "gh", "type": "external", "label": "gh CLI", "sublabel": "gh auth login",
+      "row": 3, "col": 3,
+      "sources": [{ "path": "src/release.rs", "line": 24, "end_line": 26, "label": "перевірка PATH" }]
+    },
+    {
+      "id": "ghrelease", "type": "cloud", "label": "GitHub Release", "sublabel": "assets за тегом",
+      "row": 3, "col": 4,
+      "sources": [{ "path": "src/release.rs", "line": 52, "end_line": 60, "label": "перелік assets" }]
+    }
+  ],
+  "connections": [
+    { "id": "user-cli", "from": "user", "to": "cli", "variant": "emphasis" },
+    { "id": "cli-build", "from": "cli", "to": "build", "label": "build", "variant": "emphasis" },
+    { "id": "build-cargo", "from": "build", "to": "cargo", "label": "build" },
+    { "id": "build-artifact", "from": "build", "to": "artifact", "label": "друкує шлях" },
+    { "id": "cli-sign", "from": "cli", "to": "sign", "label": "sign", "fromSide": "bottom" },
+    { "id": "secret-sign", "from": "secret", "to": "sign", "label": "ключ" },
+    { "id": "sign-ota", "from": "sign", "to": "otasign", "label": "publish", "variant": "emphasis" },
+    { "id": "ota-channel", "from": "otasign", "to": "channel", "label": "пише" },
+    { "id": "cli-release", "from": "cli", "to": "release", "label": "release", "fromSide": "bottom" },
+    { "id": "release-gh", "from": "release", "to": "gh", "label": "create", "variant": "emphasis" },
+    { "id": "gh-ghrelease", "from": "gh", "to": "ghrelease", "label": "assets" },
+    { "id": "channel-assets", "from": "channel", "to": "ghrelease", "label": "як assets", "variant": "dashed", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Зовнішні команди",
+      "items": [
+        "run::tool стрімить stdout і stderr користувачу",
+        "Ненульовий exit code зовнішньої команди валить CLI",
+        "Відсутній інструмент у PATH дає окрему помилку MissingTool"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Повторний реліз",
+      "items": [
+        "Спочатку gh release create",
+        "Якщо тег уже існує — gh release upload --clobber",
+        "Без --repo gh бере репозиторій з git remote поточної теки"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Межі відповідальності",
+      "items": [
+        "Криптографія і формат OTA належать ota-sign",
+        "Authenticode-підписування Windows тут не виконується",
+        "Версію в Cargo.toml і changelog CLI не змінює",
+        "Бінарник у теку для підпису копіюють вручну"
+      ]
+    }
+  ]
+}

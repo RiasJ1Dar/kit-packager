@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "receiptId": "1f8e45e3-869b-488b-b055-435294d483dd",
+  "receiptId": "c549677c-cc4f-4017-be9b-57fc92c1a0f5",
   "status": "current",
   "command": "deliver",
   "type": "architecture",
-  "input": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
-  "output": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+  "input": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
+  "output": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
   "specification": {
     "sha256": "9e401f6c5a3effc488bef423261e934f8d7fedad78874b15926dd33b3b2a7e84",
     "bytes": 6277

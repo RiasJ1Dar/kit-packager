@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "browser-check",
+  "evidenceKind": "automated-browser",
+  "status": "fail",
+  "visualReview": "not-requested",
+  "provenance": "invalid",
+  "artifact": {
+    "path": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+    "sha256": "7b69eed181b977a9429650525133f6065f818f32533c6f2f1f06daae490836fc",
+    "bytes": 834813
+  },
+  "error": "Delivery provenance could not be verified.",
+  "diagnostics": [
+    {
+      "code": "delivery/provenance-invalid",
+      "severity": "error",
+      "message": "Delivery provenance could not be verified.",
+      "subject": {
+        "artifact": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "provenance": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.delivery.json"
+      },
+      "evidence": {
+        "reason": "The recorded delivery output does not identify this artifact.",
+        "recordedOutput": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "pathIdentity": {
+          "code": "file-identity-different",
+          "operation": "same-entry",
+          "method": "bigint-stat"
+        }
+      },
+      "supportedFixes": [
+        "restore access to the delivery records, then rerun deliver successfully"
+      ]
+    }
+  ],
+  "containment": {
+    "status": "fail",
+    "policy": "fit-or-reader-declared-readable-vertical-scroll",
+    "viewports": []
+  },
+  "captures": {
+    "status": "not-requested",
+    "screenshots": [],
+    "contactSheet": null
+  },
+  "sidecars": {
+    "directory": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\review-1",
+    "receipt": "kit-packager.browser-check.json",
+    "files": []
+  }
+}

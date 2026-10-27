@@ -5,14 +5,14 @@
   "status": "fail",
   "type": "architecture",
   "quality": "showcase",
-  "startedAt": "2026-10-26T17:47:35.382Z",
+  "startedAt": "2026-10-27T06:07:10.386Z",
   "specification": {
-    "path": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
+    "path": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
     "sha256": "9e401f6c5a3effc488bef423261e934f8d7fedad78874b15926dd33b3b2a7e84",
     "bytes": 6277
   },
   "artifact": {
-    "path": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+    "path": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
     "sha256": "7b69eed181b977a9429650525133f6065f818f32533c6f2f1f06daae490836fc",
     "bytes": 834813
   },
@@ -27,12 +27,12 @@
         "C:\\Users\\Public\\archify-skill\\bin\\archify.mjs",
         "deliver",
         "architecture",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
+        "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
         "--quality",
         "showcase",
         "--repo-root",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager",
+        "C:\\Users\\Public\\archify-push\\kit-packager",
         "--json"
       ],
       "receipt": {
@@ -56,28 +56,28 @@
     "deliver": {
       "status": "pass",
       "exitCode": 0,
-      "durationMs": 1070,
+      "durationMs": 1320,
       "command": [
         "C:\\Program Files\\nodejs\\node.exe",
         "C:\\Users\\Public\\archify-skill\\bin\\archify.mjs",
         "deliver",
         "architecture",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
+        "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
         "--quality",
         "showcase",
         "--repo-root",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager",
+        "C:\\Users\\Public\\archify-push\\kit-packager",
         "--json"
       ],
       "receipt": {
         "schemaVersion": 1,
-        "receiptId": "1f8e45e3-869b-488b-b055-435294d483dd",
+        "receiptId": "c549677c-cc4f-4017-be9b-57fc92c1a0f5",
         "ok": true,
         "command": "deliver",
         "type": "architecture",
-        "input": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
-        "output": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "input": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\candidate.json",
+        "output": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
         "specification": {
           "sha256": "9e401f6c5a3effc488bef423261e934f8d7fedad78874b15926dd33b3b2a7e84",
           "bytes": 6277
@@ -116,17 +116,17 @@
     "check": {
       "status": "pass",
       "exitCode": 0,
-      "durationMs": 263,
+      "durationMs": 277,
       "command": [
         "C:\\Program Files\\nodejs\\node.exe",
         "C:\\Users\\Public\\archify-skill\\bin\\archify.mjs",
         "check",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
         "--require-provenance"
       ],
       "receipt": {
         "ok": true,
-        "file": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "file": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
         "artifact": {
           "sha256": "7b69eed181b977a9429650525133f6065f818f32533c6f2f1f06daae490836fc",
           "bytes": 834813
@@ -277,18 +277,18 @@
           "issues": []
         },
         "provenance": "current",
-        "deliveryReceiptId": "1f8e45e3-869b-488b-b055-435294d483dd"
+        "deliveryReceiptId": "c549677c-cc4f-4017-be9b-57fc92c1a0f5"
       }
     },
     "browser-check": {
       "status": "fail",
       "exitCode": 1,
-      "durationMs": 201,
+      "durationMs": 63,
       "command": [
         "C:\\Program Files\\nodejs\\node.exe",
         "C:\\Users\\Public\\archify-skill\\bin\\archify.mjs",
         "browser-check",
-        "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
         "--json",
         "--require-provenance"
       ],
@@ -301,9 +301,9 @@
         "status": "fail",
         "visualReview": "not-requested",
         "provenance": "current",
-        "deliveryReceiptId": "1f8e45e3-869b-488b-b055-435294d483dd",
+        "deliveryReceiptId": "c549677c-cc4f-4017-be9b-57fc92c1a0f5",
         "artifact": {
-          "path": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+          "path": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
           "sha256": "7b69eed181b977a9429650525133f6065f818f32533c6f2f1f06daae490836fc",
           "bytes": 834813
         },
@@ -312,22 +312,25 @@
           "motion": "still"
         },
         "chrome": {
-          "status": "available",
-          "executable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+          "status": "not-checked",
+          "executable": null
         },
         "diagnostics": [
           {
-            "code": "viewer/browser-check-runtime",
+            "code": "viewer/evidence-path-conflict",
             "severity": "error",
-            "message": "browser-check could not complete its Chrome inspection.",
+            "message": "browser-check will not replace the existing unowned evidence path \"C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json\".",
             "subject": {
-              "artifact": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html"
+              "artifact": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+              "evidencePath": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json"
             },
             "evidence": {
-              "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nWindows browser startup may have relaunched before connecting to the DevTools pipe. Retry from a non-elevated PowerShell opened normally, outside an elevated or compatibility-mode parent. Archify does not disable browser de-elevation or the sandbox to preserve pipe handles.\nChrome transport: Node v26.5.0, libuv 1.52.1, win32; pid=28120, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=false, ended=true, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+              "reason": {
+                "code": "ownership-sidecar-path-mismatch"
+              }
             },
             "supportedFixes": [
-              "resolve the reported Chrome inspection error, then rerun browser-check"
+              "move the conflicting file aside, or choose a separate --out-dir, then rerun browser-check"
             ]
           }
         ],
@@ -358,7 +361,7 @@
           "receipt": "kit-packager.browser-check.json",
           "files": []
         },
-        "error": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nWindows browser startup may have relaunched before connecting to the DevTools pipe. Retry from a non-elevated PowerShell opened normally, outside an elevated or compatibility-mode parent. Archify does not disable browser de-elevation or the sandbox to preserve pipe handles.\nChrome transport: Node v26.5.0, libuv 1.52.1, win32; pid=28120, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=false, ended=true, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+        "error": "browser-check will not replace the existing unowned evidence path \"C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json\"."
       }
     }
   },
@@ -368,29 +371,32 @@
   },
   "diagnostics": [
     {
-      "code": "viewer/browser-check-runtime",
+      "code": "viewer/evidence-path-conflict",
       "severity": "error",
-      "message": "browser-check could not complete its Chrome inspection.",
+      "message": "browser-check will not replace the existing unowned evidence path \"C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json\".",
       "subject": {
-        "artifact": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html"
+        "artifact": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.html",
+        "evidencePath": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json"
       },
       "evidence": {
-        "reason": "Chrome DevTools read pipe failed: stream ended\nChrome process: still running.\nWindows browser startup may have relaunched before connecting to the DevTools pipe. Retry from a non-elevated PowerShell opened normally, outside an elevated or compatibility-mode parent. Archify does not disable browser de-elevation or the sandbox to preserve pipe handles.\nChrome transport: Node v26.5.0, libuv 1.52.1, win32; pid=28120, exitCode=null, signalCode=null.\nChrome read pipe: readable=false, ended=true, destroyed=false, receivedBytes=0, messages=0, bufferedBytes=0.\nChrome write pipe: writable=false, ended=true, destroyed=false, completedWrites=1, writtenBytes=50, bufferedBytes=0."
+        "reason": {
+          "code": "ownership-sidecar-path-mismatch"
+        }
       },
       "supportedFixes": [
-        "resolve the reported Chrome inspection error, then rerun browser-check"
+        "move the conflicting file aside, or choose a separate --out-dir, then rerun browser-check"
       ]
     }
   ],
   "evidence": {
-    "receipt": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.finalize.json",
-    "summaryReceipt": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.finalize-summary.json",
-    "browserCheckReceipt": "C:\\Users\\Public\\archify-20261026\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json"
+    "receipt": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.finalize.json",
+    "summaryReceipt": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\Public\\archify-push\\kit-packager\\.archify\\architecture-kit-packager-20261026-200000\\kit-packager.browser-check.json"
   },
   "visualReview": "not-requested",
   "failedStage": "browser-check",
-  "finishedAt": "2026-10-26T17:47:37.429Z",
-  "durationMs": 2047,
+  "finishedAt": "2026-10-27T06:07:12.617Z",
+  "durationMs": 2230,
   "update": {
     "status": "current",
     "installedVersion": "3.2.0",
